@@ -1,0 +1,27 @@
+class Solution {
+    public int triangleNumber(int[] nums) {
+        int count = 0;
+        if(nums.length < 3){
+            return count;
+        }
+        Arrays.sort(nums);
+        for(int i=2; i< nums.length; i++){
+            int l = 0, r = i-1;
+            while(l<r){
+                if(nums[l]+ nums[r] > nums[i]){
+                    count+=(r-l);
+                    r--;
+                }
+                else{
+                    l++;
+                }
+            }
+        }
+        
+        return count;
+    }
+}
+
+// Leetcode 611
+// TC - O(N^2)
+// SC - O(1)
