@@ -1,0 +1,48 @@
+class Solution {
+    public int[] threeEqualParts(int[] arr) {
+        int totalOnes = 0;
+        int len = arr.length;
+        for(int i=0; i<len;i++){
+            if(arr[i]==1){
+                totalOnes++;
+            }
+        }
+        if(totalOnes == 0){
+            return new int[]{0,2};
+        }
+        if(totalOnes%3 != 0){
+            return new int[]{-1,-1};
+        }
+        int onesInEachPart = totalOnes/3;
+        int indexOfFirstPart = -1, indexOfSecondPart = -1, indexOfThirdPart = -1;
+        totalOnes = 0;
+        //finding index of 1 in each part
+        for(int i=0; i< len; i++){
+            if(arr[i]==1){
+                totalOnes++;
+                if(totalOnes == 1)
+                    indexOfFirstPart = i;
+                else if(totalOnes == (onesInEachPart + 1))
+                    indexOfSecondPart = i;
+                else if(totalOnes == 2 * onesInEachPart + 1)
+                    indexOfThirdPart = i;
+            }
+        }
+        //check whether the binary value is same or not
+        while(indexOfThirdPart<len){
+            if((arr[indexOfFirstPart] == arr[indexOfSecondPart]) 
+               && (arr[indexOfSecondPart] == arr[indexOfThirdPart])){
+                indexOfFirstPart++;
+                indexOfSecondPart++;
+                indexOfThirdPart++;
+            }
+            else{
+                return new int[]{-1,-1};
+            }
+        }
+        return new int[]{indexOfFirstPart-1, indexOfSecondPart};
+    }
+}
+
+// LC 927
+// TC O(N)
